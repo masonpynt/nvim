@@ -62,6 +62,7 @@ local plugins = {
   "stevearc/dressing.nvim",                      -- Improvements on default behaviour (extensible core UI hooks).
   "AckslD/swenv.nvim",                           -- cool plugin for hot-switching python envs (WHICH I WILL NEVER DO).
   "roobert/tailwindcss-colorizer-cmp.nvim",
+  "nvim-tree/nvim-tree.lua",
   "nvim-treesitter/nvim-treesitter-textobjects", -- syntax aware selection, etc
   "mfussenegger/nvim-jdtls",                     -- lsp extensions
   "opalmay/vim-smoothie",                        -- smoother scrolling
@@ -146,6 +147,7 @@ local plugins = {
   },
 -- "ThePrimeagen/vim-be-good", -- gamer
   "lambdalisue/suda.vim", -- sudawrite w!!
+  "renerocksai/telekasten.nvim",
 }
 
 
