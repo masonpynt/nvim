@@ -1,5 +1,4 @@
-local wk = require ("which-key")
-wk.register(nvim.builtin.which_key.mappings)
+require("user.whichkey")
 nvim.builtin.which_key.mappings["dm"] = { "<cmd> lua require('neotest').run.run()<cr>", "Test Method"}
 nvim.builtin.which_key.mappings["dM"] =
   { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Test Method DAP" }

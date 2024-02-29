@@ -65,7 +65,7 @@ local plugins = {
   "nvim-tree/nvim-tree.lua",
   "nvim-treesitter/nvim-treesitter-textobjects", -- syntax aware selection, etc
   "mfussenegger/nvim-jdtls",                     -- lsp extensions
-  "opalmay/vim-smoothie",                        -- smoother scrolling
+--  "opalmay/vim-smoothie",                        -- smooth scrolling
   {
     "j-hui/fidget.nvim",                         -- UI for notifications/LSP progress.
     branch = "legacy",

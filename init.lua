@@ -1,18 +1,3 @@
--- Initialise a global table for nvim.builtin to ensure the rest of the plugins can access it
-_G.nvim = {
-  builtin = {
-    which_key = {
-      setup = {
-        plugins = {
-          presets = { operators = false },
-        },
-        ignore_missing = true,
-      },
-      mappings = {},
-    }
-  }
-}
-
 --require "user.launch"
 require "user.plugins"
 require "user.lazy"
@@ -30,7 +15,7 @@ require "user.treesitter"
 require "user.cmp"
 require "user.git"
 require "user.neotest"
-require "user.smoothie"
+--require "user.smoothie"
 require "user.webdev-icons"
 require "user.icons"
 require "user.colorizer"

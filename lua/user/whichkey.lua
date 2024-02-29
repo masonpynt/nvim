@@ -1,4 +1,16 @@
-vim.g.mapleader = " "
+_G.nvim = {
+  builtin = {
+    which_key = {
+      setup = {
+        plugins = {
+          presets = { operators = false },
+        },
+        ignore_missing = true,
+      },
+      mappings = {},
+    }
+  }
+}
 
 local function register_nvim_which_key_mappings()
 	local wk = require("which-key")
@@ -9,11 +21,11 @@ end
 nvim.builtin.which_key.setup.plugins.presets["operators"] = false
 nvim.builtin.which_key.setup.ignore_missing = true
 
-nvim.builtin.which_key.mappings["<leader>b"] = { "<cmd>Telescope buffers<cr>", "Buffers" }
-nvim.builtin.which_key.mappings["<leader>v"] = { "<cmd>vsplit<cr>", "vsplit" }
-nvim.builtin.which_key.mappings["<leader>h"] = { "<cmd>nohlsearch<cr>", "nohl" }
-nvim.builtin.which_key.mappings["<leader>o"] = { "<cmd>AerialToggle!<cr>", "Outline" }
-nvim.builtin.which_key.mappings["<leader>q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" }
+nvim.builtin.which_key.mappings["b"] = { "<cmd>Telescope buffers<cr>", "Buffers" }
+nvim.builtin.which_key.mappings["v"] = { "<cmd>vsplit<cr>", "vsplit" }
+nvim.builtin.which_key.mappings["h"] = { "<cmd>nohlsearch<cr>", "nohl" }
+nvim.builtin.which_key.mappings["o"] = { "<cmd>AerialToggle!<cr>", "Outline" }
+nvim.builtin.which_key.mappings["q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" }
 --nvim.builtin.which_key.mappings["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" }
 -- nvim.builtin.which_key.mappings["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" }
 nvim.builtin.which_key.mappings["<leader>gy"] = "Link"
