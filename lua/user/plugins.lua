@@ -57,8 +57,8 @@ local plugins = {
   --  },
   -- "kkharji/sqlite.lua",
   --  { url = "git@github.com:ChristianChiarulli/bookmark.nvim.git" },
-  --  { url = "git@github.com:ChristianChiarulli/onedark.nvim.git" },
-  --  { url = "git@github.com:LunarVim/primer.nvim.git" },
+    { url = "git@github.com:ChristianChiarulli/onedark.nvim.git" },
+    { url = "git@github.com:LunarVim/primer.nvim.git" },
   "stevearc/dressing.nvim",                      -- Improvements on default behaviour (extensible core UI hooks).
   "AckslD/swenv.nvim",                           -- cool plugin for hot-switching python envs (WHICH I WILL NEVER DO).
   "roobert/tailwindcss-colorizer-cmp.nvim",
