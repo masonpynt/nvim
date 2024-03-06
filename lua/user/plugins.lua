@@ -148,6 +148,7 @@ local plugins = {
 -- "ThePrimeagen/vim-be-good", -- gamer
   "lambdalisue/suda.vim", -- sudawrite w!!
   "renerocksai/telekasten.nvim",
+  "jvgrootveld/telescope-zoxide",
 }
 
 
