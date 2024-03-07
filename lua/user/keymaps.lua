@@ -31,6 +31,6 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
-
 --Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
+
