@@ -5,10 +5,17 @@ local plugins = {
   "williamboman/mason.nvim",         -- LSP, DAP, linter, formatter manager.
   "williamboman/mason-lspconfig",    -- Plugin for mason.nvim to more easily use lsp configs.
   "jose-elias-alvarez/null-ls.nvim", -- null ls be null ls
-  "folke/tokyonight.nvim",                -- tokyo night theme (pretty)
+--  "stevearc/conform.nvim",
+  {
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    vim.cmd("colorscheme tokyonight-night")
+  end
+  },
   --"lunarvim/lunar.nvim" -- I might uncomment as the default lvim theme is pretty.
-  "nvim-lua/plenary.nvim",
-  "nvim-lua/popup.nvim",                         -- popup API (still a work in progress)
+  "nvim-lua/plenary.nvim", "nvim-lua/popup.nvim",                         -- popup API (still a work in progress)
   "nvim-telescope/telescope.nvim",                    -- this is not optional (if ure normal).
   "nvim-telescope/telescope-fzf-native.nvim",    -- fuzzy finding for telescope, written in C (program in C!)
   "Tastyep/structlog.nvim",                      -- logging for nvim in lua.
@@ -16,6 +23,7 @@ local plugins = {
   "hrsh7th/cmp-nvim-lsp",                        -- cmp source nvim
   "hrsh7th/cmp-buffer",                          -- cmp source for buffer
   "hrsh7th/cmp-path",                            -- cmp source for path
+  "hrsh7th/cmp-cmdline",
   "rafamadriz/friendly-snippets",                -- snippets for nvim for languages
   "saadparwaiz1/cmp_luasnip",                    -- cmp source for luasnip
   "folke/neodev.nvim",                           -- completion, docs, etc for nvim.lua API
@@ -24,7 +32,7 @@ local plugins = {
   "JoosepAlviste/nvim-ts-context-commentstring", -- treesitter context commentstring
   "kyazdani42/nvim-tree.lua",                    -- file explorer tree
   "tamago324/lir.nvim",                          -- file explorer
-  "lewis6991/gitsigns.nvim",                     -- git signs
+--  "lewis6991/gitsigns.nvim",              
   "folke/which-key.nvim",                        -- whichkey popup for keybinds
   "numToStr/Comment.nvim",                       -- comments that support treesitter, dot repeat, etc.
   "ahmedkhalf/project.nvim",                     -- that one cool project plugin that integrates with telescope.
@@ -48,6 +56,7 @@ local plugins = {
   -- "HiPhish/nvim-ts-rainbow2", -- rainbow treesitter (i think this has issues so commented for the moment)
   "karb94/neoscroll.nvim", -- smooth scrolling *again
   "ghillb/cybu.nvim", -- custom notification and context windows for bnext and bprev
+  "L3MON4D3/LuaSnip",
   "lunarvim/synthwave84.nvim",
   --  {
   --    "kndndrj/nvim-dbee",
@@ -77,7 +86,7 @@ local plugins = {
   "moll/vim-bbye",            -- delete buffers without closing windows and/or fucking up layouts such as split cols
   "folke/todo-comments.nvim", -- required because half my code is #TODO.
   --  "windwp/nvim-spectre", -- spectre find and replace (probably not use).
-  "f-person/git-blame.nvim",  -- git blame plugin for neovim
+--  "f-person/git-blame.nvim",  -- git blame plugin for neovim
   --  "ruifm/gitlinker.nvim", -- generate permalinks for git web frontends.
   "mattn/vim-gist",           -- gist creation (i will use this once and then never again)
   "mattn/webapi-vim",

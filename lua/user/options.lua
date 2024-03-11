@@ -62,9 +62,12 @@ vim.filetype.add {
   },
 }
 
-local colorscheme = "tokyonight-night"
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify("Colorscheme " .. colorscheme .. " not found!", vim.log.levels.ERROR)
-  return
-end
+
+
+-- colorscheme here so it loads first
+--local colorscheme = "tokyonight-night"
+--local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+--if not status_ok then
+--  vim.notify("Colorscheme " .. colorscheme .. " not found!", vim.log.levels.ERROR)
+--  return
+--end

@@ -1,5 +1,3 @@
--- Autoclose
-
 local function is_modified_buffer_open(buffers)
     for _, buffer in ipairs(buffers) do
         if vim.fn.buflisted(buffer.bufnr) == 1 and vim.bo[buffer.bufnr].modified then
