@@ -119,6 +119,7 @@ nvim.builtin.which_key.mappings["l"] = {
 		"Workspace Diagnostics",
 	},
 	f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
+  g = { "<cmd> lua vim.lsp.buf.definition()<cr>", "Go to Definition" },
 	F = { "<cmd>LspToggleAutoFormat<cr>", "Toggle Autoformat" },
 	i = { "<cmd>LspInfo<cr>", "Info" },
 	h = { "<cmd>lua require('lsp-inlayhints').toggle()<cr>", "Toggle Hints" },

@@ -54,6 +54,7 @@ local plugins = {
     event = "ColorScheme",
   },
   -- "HiPhish/nvim-ts-rainbow2", -- rainbow treesitter (i think this has issues so commented for the moment)
+  "norcalli/nvim-colorizer.lua", -- colorizer for neovim to show hex vals
   "karb94/neoscroll.nvim", -- smooth scrolling *again
   "ghillb/cybu.nvim", -- custom notification and context windows for bnext and bprev
   "L3MON4D3/LuaSnip",
@@ -159,6 +160,5 @@ local plugins = {
   "renerocksai/telekasten.nvim",
   "jvgrootveld/telescope-zoxide",
 }
-
 
 return plugins

@@ -13,6 +13,8 @@ colorizer.setup {
     "html",
     "astro",
     "lua",
+    "cpp",
+    "c",
   },
   user_default_options = {
     names = false,
