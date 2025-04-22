@@ -30,7 +30,7 @@ local plugins = {
   "windwp/nvim-autopairs",                       -- autopairs for nvim
   "nvim-treesitter/nvim-treesitter",             -- this one is obvious.
   "JoosepAlviste/nvim-ts-context-commentstring", -- treesitter context commentstring
-  "kyazdani42/nvim-tree.lua",                    -- file explorer tree
+-- "kyazdani42/nvim-tree.lua",                    -- file explorer tree
   "tamago324/lir.nvim",                          -- file explorer
 --  "lewis6991/gitsigns.nvim",              
   "folke/which-key.nvim",                        -- whichkey popup for keybinds
@@ -83,7 +83,7 @@ local plugins = {
   "windwp/nvim-ts-autotag", -- auto close tags using treesitter
   "kylechui/nvim-surround", -- change/edit/add plugin for surrounding pairs (among other stuff).
   -- "christianchiarulli/harpoon" -- i want this so badly to work.
-  "NvChad/nvim-colorizer.lua",
+--  "NvChad/nvim-colorizer.lua",
   "moll/vim-bbye",            -- delete buffers without closing windows and/or fucking up layouts such as split cols
   "folke/todo-comments.nvim", -- required because half my code is #TODO.
   --  "windwp/nvim-spectre", -- spectre find and replace (probably not use).
@@ -155,6 +155,7 @@ local plugins = {
     "hrsh7th/cmp-emoji",
     event = "BufRead",
   },
+  "swiftlang/sourcekit-lsp",
 -- "ThePrimeagen/vim-be-good", -- gamer
   "lambdalisue/suda.vim", -- sudawrite w!!
   "renerocksai/telekasten.nvim",

@@ -1,228 +1,204 @@
-_G.nvim = {
-  builtin = {
-    which_key = {
-      setup = {
-        plugins = {
-          presets = { operators = false },
-        },
-        ignore_missing = true,
-      },
-      mappings = {},
-    }
-  }
-}
+-- require which-key
+local wk = require("which-key")
 
-local function register_nvim_which_key_mappings()
-	local wk = require("which-key")
-	wk.setup(_G.nvim.builtin.which_key.setup)
-	wk.register(_G.nvim.builtin.which_key.mappings, { prefix = "<leader>" })
-end
+-- Setup options
+-- Equivalent to your old nvim.builtin.which_key.setup
+wk.setup({
+  plugins = {
+    presets = { operators = false },
+  },
+  -- Your custom filter function remains the same
+  filter = function(mapping)
+    return mapping.desc and mapping.desc:match("%S")
+  end,
+  -- Add other global options here if needed from the which-key documentation
+})
 
-nvim.builtin.which_key.setup.plugins.presets["operators"] = false
-nvim.builtin.which_key.setup.ignore_missing = true
+wk.add({
+  -- Mappings with <leader> prefix
+  { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+  { "<leader>v", "<cmd>vsplit<cr>", desc = "vsplit" },
+  { "<leader>h", "<cmd>nohlsearch<cr>", desc = "nohl" },
+  { "<leader>o", "<cmd>AerialToggle!<cr>", desc = "Outline" },
+  { "<leader>q", '<cmd>lua require("user.functions").smart_quit()<CR>', desc = "Quit" },
 
-nvim.builtin.which_key.mappings["b"] = { "<cmd>Telescope buffers<cr>", "Buffers" }
-nvim.builtin.which_key.mappings["v"] = { "<cmd>vsplit<cr>", "vsplit" }
-nvim.builtin.which_key.mappings["h"] = { "<cmd>nohlsearch<cr>", "nohl" }
-nvim.builtin.which_key.mappings["o"] = { "<cmd>AerialToggle!<cr>", "Outline" }
-nvim.builtin.which_key.mappings["q"] = { '<cmd>lua require("user.functions").smart_quit()<CR>', "Quit" }
---nvim.builtin.which_key.mappings["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" }
--- nvim.builtin.which_key.mappings["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" }
-nvim.builtin.which_key.mappings["<leader>gy"] = "Link"
-nvim.builtin.which_key.mappings["r"] = {
-	name = "Replace",
-	r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-	w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-	f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
-}
-nvim.builtin.which_key.mappings["a"] = {
-	name = "A.I.",
-	c = { "<cmd>ChatGPT<cr>", "ChatGPT" },
-	a = { "<cmd>ChatGPTActAs<cr>", "Act As GPT" },
-	e = { "<cmd>ChatGPTEditWithInstructions<cr>", "Edit GPT" },
-	r = { "<cmd>ChatRunCustomCodeAction<cr>", "Code Action GPT" },
-	s = { "<cmd>Copilot suggestion<cr>", "Toggle Copilot Suggestion" },
-	p = { "<cmd>Copilot panel<cr>", "Toggle Copilot Panel" },
-	t = { "<cmd>Copilot toggle<cr>", "Toggle Copilot" },
-}
-nvim.builtin.which_key.mappings["d"] = {
-	name = "Debug",
-	b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Breakpoint" },
-	c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-	i = { "<cmd>lua require'dap'.step_into()<cr>", "Into" },
-	o = { "<cmd>lua require'dap'.step_over()<cr>", "Over" },
-	O = { "<cmd>lua require'dap'.step_out()<cr>", "Out" },
-	r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Repl" },
-	l = { "<cmd>lua require'dap'.run_last()<cr>", "Last" },
-	u = { "<cmd>lua require'dapui'.toggle()<cr>", "UI" },
-	x = { "<cmd>lua require'dap'.terminate()<cr>", "Exit" },
-}
-nvim.builtin.which_key.mappings["f"] = {
-	name = "Find",
-	b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-	c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-	f = { "<cmd>Telescope find_files<cr>", "Find files" },
-	t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
-	s = { "<cmd>Telescope grep_string<cr>", "Find String" },
-	h = { "<cmd>Telescope help_tags<cr>", "Help" },
-	H = { "<cmd>Telescope highlights<cr>", "Highlights" },
-	i = { "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", "Media" },
-	l = { "<cmd>Telescope resume<cr>", "Last Search" },
-	M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-	r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
-	R = { "<cmd>Telescope registers<cr>", "Registers" },
-	k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-	C = { "<cmd>Telescope commands<cr>", "Commands" },
-}
---nvim.builtin.which_key.mappings["g"] = {
---  name = "Git",
---  -- g = { "<cmd>lua require 'lvim.core.terminal'.lazygit_toggle(12000)<cr>", "Lazygit" },
---  g = { "<cmd>Neogit<cr>", "Neogit" },
---  j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
---  k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
---  l = { "<cmd>GitBlameToggle<cr>", "Blame" },
---  p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
---  r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
---  R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
---  s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
---  u = {
---    "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
---    "Undo Stage Hunk",
---  },
---  n = { ":!git checkout -b ", "Checkout New Branch" },
---  o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
---  b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
---  c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
---  f = { "<cmd>Telescope git_bcommits<cr>", "Checkout buffer commit" },
---  d = {
---    "<cmd>Gitsigns diffthis HEAD<cr>",
---    "Diff",
---  },
---  G = {
---    name = "Gist",
---    a = { "<cmd>Gist -b -a<cr>", "Create Anon" },
---    d = { "<cmd>Gist -d<cr>", "Delete" },
---    f = { "<cmd>Gist -f<cr>", "Fork" },
---    g = { "<cmd>Gist -b<cr>", "Create" },
---    l = { "<cmd>Gist -l<cr>", "List" },
---    p = { "<cmd>Gist -b -p<cr>", "Create Private" },
---  },
---}
-nvim.builtin.which_key.mappings["l"] = {
-	name = "LSP",
-	a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-	c = { "<cmd>lua require('copilot.suggestion').toggle_auto_trigger()<cr>", "Get Capabilities" },
-	-- c = { "<cmd>lua require('user.lsp').server_capabilities()<cr>", "Get Capabilities" },
-	d = { "<cmd>TroubleToggle<cr>", "Diagnostics" },
-	w = {
-		"<cmd>Telescope lsp_workspace_diagnostics<cr>",
-		"Workspace Diagnostics",
-	},
-	f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "Format" },
-  g = { "<cmd> lua vim.lsp.buf.definition()<cr>", "Go to Definition" },
-	F = { "<cmd>LspToggleAutoFormat<cr>", "Toggle Autoformat" },
-	i = { "<cmd>LspInfo<cr>", "Info" },
-	h = { "<cmd>lua require('lsp-inlayhints').toggle()<cr>", "Toggle Hints" },
-	H = { "<cmd>IlluminationToggle<cr>", "Toggle Doc HL" },
-	I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-	j = {
-		"<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>",
-		"Next Diagnostic",
-	},
-	k = {
-		"<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>",
-		"Prev Diagnostic",
-	},
-	v = { "<cmd>lua require('lsp_lines').toggle()<cr>", "Virtual Text" },
-	l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-	o = { "<cmd>SymbolsOutline<cr>", "Outline" },
-	q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-	r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-	R = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
-	s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-	S = {
-		"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-		"Workspace Symbols",
-	},
-	t = { '<cmd>lua require("user.functions").toggle_diagnostics()<cr>', "Toggle Diagnostics" },
-	u = { "<cmd>LuaSnipUnlinkCurrent<cr>", "Unlink Snippet" },
-}
-nvim.builtin.which_key.mappings["t"] = {
-	name = "Tab",
-	t = {
-		"<cmd>lua require('telescope').extensions['telescope-tabs'].list_tabs(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal', prompt_title='Tabs'})<cr>",
-		"Find Tab",
-	},
-	n = { "<cmd>tabnew %<cr>", "New Tab" },
-	c = { "<cmd>tabclose<cr>", "Close Tab" },
-	o = { "<cmd>tabonly<cr>", "Only Tab" },
-}
--- nvim.builtin.cmp.enabled = false
--- nvim.builtin.which_key.mappings["o"] = {
---   name = "Options",
---   c = { "<cmd>lua nvim.builtin.cmp.active = false<cr>", "Completion off" },
---   C = { "<cmd>lua nvim.builtin.cmp.active = true<cr>", "Completion on" },
---   -- w = { '<cmd>lua require("user.functions").toggle_option("wrap")<cr>', "Wrap" },
---   -- r = { '<cmd>lua require("user.functions").toggle_option("relativenumber")<cr>', "Relative" },
---   -- l = { '<cmd>lua require("user.functions").toggle_option("cursorline")<cr>', "Cursorline" },
---   -- s = { '<cmd>lua require("user.functions").toggle_option("spell")<cr>', "Spell" },
---   -- t = { '<cmd>lua require("user.functions").toggle_tabline()<cr>', "Tabline" },
--- }
+  -- { "<leader>/", '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', desc = "Comment" },
+  -- { "<leader>c", "<cmd>Bdelete!<CR>", desc = "Close Buffer" },
 
-nvim.builtin.which_key.mappings["n"] = {
-	name = "Notes",
-	c = { "<cmd>Telekasten show_calendar<cr>", "Calendar" },
-	n = { "<cmd>Telekasten new_note<cr>", "Note" },
-	f = { "<cmd>Telekasten find_notes<cr>", "Find" },
-	F = { "<cmd>Telekasten find_daily_notes<cr>", "Find Journal" },
-	j = { "<cmd>Telekasten goto_today<cr>", "Journal" },
-	p = { "<cmd>Telekasten panel<cr>", "Panel" },
-	t = { "<cmd>Telekasten toggle_todo<cr>", "Toggle Todo" },
-}
 
-nvim.builtin.which_key.mappings["e"] = {
-	name = "NvimTree",
-	e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
-  f = { "<cmd>NvimTreeFocus<CR>", "Focus" },
-}
+  { "<leader>r", group = "Replace" },
+  { "<leader>rr", "<cmd>lua require('spectre').open()<cr>", desc = "Replace" },
+  { "<leader>rw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", desc = "Replace Word" },
+  { "<leader>rf", "<cmd>lua require('spectre').open_file_search()<cr>", desc = "Replace Buffer" },
 
-nvim.builtin.which_key.mappings[";"] = nil
--- nvim.builtin.which_key.mappings["c"] = nil
-nvim.builtin.which_key.mappings["L"] = nil
-nvim.builtin.which_key.mappings["s"] = nil
-nvim.builtin.which_key.mappings["w"] = nil
+  { "<leader>a", group = "A.I." },
+  { "<leader>ac", "<cmd>ChatGPT<cr>", desc = "ChatGPT" },
+  { "<leader>aa", "<cmd>ChatGPTActAs<cr>", desc = "Act As GPT" },
+  { "<leader>ae", "<cmd>ChatGPTEditWithInstructions<cr>", desc = "Edit GPT" },
+  { "<leader>ar", "<cmd>ChatRunCustomCodeAction<cr>", desc = "Code Action GPT" },
+  { "<leader>as", "<cmd>Copilot suggestion<cr>", desc = "Toggle Copilot Suggestion" },
+  { "<leader>ap", "<cmd>Copilot panel<cr>", desc = "Toggle Copilot Panel" },
+  { "<leader>at", "<cmd>Copilot toggle<cr>", desc = "Toggle Copilot" },
 
-local m_opts = {
-	mode = "n", -- NORMAL mode
-	prefix = "m",
-	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-	silent = true, -- use `silent` when creating keymaps
-	noremap = true, -- use `noremap` when creating keymaps
-	nowait = true, -- use `nowait` when creating keymaps
-}
+  { "<leader>d", group = "Debug" },
+  { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc = "Breakpoint" },
+  { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue" },
+  { "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", desc = "Into" },
+  { "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", desc = "Over" },
+  { "<leader>dO", "<cmd>lua require'dap'.step_out()<cr>", desc = "Out" },
+  { "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", desc = "Repl" },
+  { "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", desc = "Last" },
+  { "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", desc = "UI" },
+  { "<leader>dx", "<cmd>lua require'dap'.terminate()<cr>", desc = "Exit" },
 
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
-	return
-end
+  { "<leader>f", group = "Find" },
+  { "<leader>fb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+  { "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
+  { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+  { "<leader>ft", "<cmd>Telescope live_grep<cr>", desc = "Find Text" },
+  { "<leader>fs", "<cmd>Telescope grep_string<cr>", desc = "Find String" },
+  { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
+  { "<leader>fH", "<cmd>Telescope highlights<cr>", desc = "Highlights" },
+  { "<leader>fi", "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", desc = "Media" },
+  { "<leader>fl", "<cmd>Telescope resume<cr>", desc = "Last Search" },
+  { "<leader>fM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+  { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent File" },
+  { "<leader>fR", "<cmd>Telescope registers<cr>", desc = "Registers" },
+  { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+  { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 
-local m_mappings = {
-	m = { "<cmd>BookmarkToggle<cr>", "Toggle" },
-	j = { "<cmd>BookmarkNext<cr>", "Next" },
-	k = { "<cmd>BookmarkPrev<cr>", "Prev" },
-	c = { "<cmd>BookmarkClear<cr>", "Clear" },
-	l = { "<cmd>BookmarkList<cr>", "List" },
-	f = { "<cmd>FilemarkToggle<cr>", "Mark File" },
-	h = { '<cmd>lua require("harpoon.mark").add_file()<cr>', "Harpoon" },
-	-- ["."] = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "Harpoon Next" },
-	-- [","] = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "Harpoon Prev" },
-	-- l = { "<cmd>lua require('user.bfs').open()<cr>", "Buffers" },
-	-- s = { "<cmd>Telescope harpoon marks<cr>", "Search Files" },
-	-- s = {
-	--   "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>",
-	--   "Show",
-	-- },
-	-- [";"] = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Harpoon UI" },
-}
+  -- { "<leader>g", group = "Git" },
+  -- g = { "<cmd>Neogit<cr>", "Neogit" }, -- or the lazygit version if preferred
+  -- { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+  -- j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+  -- { "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
+  -- k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+  -- { "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
+  -- l = { "<cmd>GitBlameToggle<cr>", "Blame" },
+  -- { "<leader>gl", "<cmd>GitBlameToggle<cr>", desc = "Blame" },
+  -- p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+  -- { "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", desc = "Preview Hunk" },
+  -- r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+  -- { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
+  -- R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+  -- { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
+  -- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+  -- { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage Hunk" },
+  -- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+  -- { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo Stage Hunk" },
+  -- n = { ":!git checkout -b ", "Checkout New Branch" },
+  -- { "<leader>gn", ":!git checkout -b ", desc = "Checkout New Branch" },
+  -- o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+  -- { "<leader>go", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
+  -- b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+  -- { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+  -- c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+  -- { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
+  -- f = { "<cmd>Telescope git_bcommits<cr>", "Checkout buffer commit" },
+  -- { "<leader>gf", "<cmd>Telescope git_bcommits<cr>", desc = "Checkout buffer commit" },
+  -- d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
+  -- { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff" },
+  -- G = { name = "Gist", ... }, -- Commented Nested Group definition
+  -- { "<leader>gG", group = "Gist" },
+  -- Commented Nested sub-mappings for Gist group:
+  -- a = { "<cmd>Gist -b -a<cr>", "Create Anon" },
+  -- { "<leader>gGa", "<cmd>Gist -b -a<cr>", desc = "Create Anon" },
+  -- d = { "<cmd>Gist -d<cr>", "Delete" },
+  -- { "<leader>gGd", "<cmd>Gist -d<cr>", desc = "Delete" },
+  -- f = { "<cmd>Gist -f<cr>", "Fork" },
+  -- { "<leader>gGf", "<cmd>Gist -f<cr>", desc = "Fork" },
+  -- g = { "<cmd>Gist -b<cr>", "Create" },
+  -- { "<leader>gGg", "<cmd>Gist -b<cr>", desc = "Create" },
+  -- l = { "<cmd>Gist -l<cr>", "List" },
+  -- { "<leader>gGl", "<cmd>Gist -l<cr>", desc = "List" },
+  -- p = { "<cmd>Gist -b -p<cr>", "Create Private" },
+  -- { "<leader>gGp", "<cmd>Gist -b -p<cr>", desc = "Create Private" },
 
-register_nvim_which_key_mappings()
+  { "<leader>l", group = "LSP" },
+  { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
+  { "<leader>lc", "<cmd>lua require('copilot.suggestion').toggle_auto_trigger()<cr>", desc = "Toggle Copilot Suggestion Auto Trigger" },
+  -- { "<leader>lc", "<cmd>lua require('user.lsp').server_capabilities()<cr>", desc = "Get Capabilities" }, -- This conflicts with the Copilot one above, leaving both commented
+
+  { "<leader>ld", "<cmd>TroubleToggle<cr>", desc = "Diagnostics" },
+  { "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+  { "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", desc = "Format" },
+  { "<leader>lg", "<cmd> lua vim.lsp.buf.definition()<cr>", desc = "Go to Definition" },
+  { "<leader>lF", "<cmd>LspToggleAutoFormat<cr>", desc = "Toggle Autoformat" },
+  { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
+  { "<leader>lh", "<cmd>lua require('lsp-inlayhints').toggle()<cr>", desc = "Toggle Hints" },
+  { "<leader>lH", "<cmd>IlluminationToggle<cr>", desc = "Toggle Doc HL" },
+  { "<leader>lI", "<cmd>LspInstallInfo<cr>", desc = "Installer Info" },
+  { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", desc = "Next Diagnostic" },
+  { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", desc = "Prev Diagnostic" },
+  { "<leader>lv", "<cmd>lua require('lsp_lines').toggle()<cr>", desc = "Virtual Text" },
+  { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
+  { "<leader>lo", "<cmd>SymbolsOutline<cr>", desc = "Outline" },
+  { "<leader>lq", "<cmd>lua vim.lsp.diagnostic.setqflist()<cr>", desc = "Quickfix" },
+  { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
+  { "<leader>lR", "<cmd>TroubleToggle lsp_references<cr>", desc = "References" },
+  { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
+  { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+  { "<leader>lt", '<cmd>lua require("user.functions").toggle_diagnostics()<cr>', desc = "Toggle Diagnostics" },
+  { "<leader>lu", "<cmd>LuaSnipUnlinkCurrent<cr>", desc = "Unlink Snippet" },
+
+  { "<leader>t", group = "Tab" },
+  { "<leader>tt", "<cmd>lua require('telescope').extensions['telescope-tabs'].list_tabs(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal', prompt_title='Tabs'})<cr>", desc = "Find Tab" },
+  { "<leader>tn", "<cmd>tabnew %<cr>", desc = "New Tab" },
+  { "<leader>tc", "<cmd>tabclose<cr>", desc = "Close Tab" },
+  { "<leader>to", "<cmd>tabonly<cr>", desc = "Only Tab" },
+
+  -- { "<leader>o", group = "Options" }, -- Note: This conflicts with the active <leader>o AerialToggle above. Keeping commented.
+  -- c = { "<cmd>lua nvim.builtin.cmp.active = false<cr>", "Completion off" },
+  -- { "<leader>oc", "<cmd>lua nvim.builtin.cmp.active = false<cr>", desc = "Completion off" },
+  -- C = { "<cmd>lua nvim.builtin.cmp.active = true<cr>", "Completion on" },
+  -- { "<leader>oC", "<cmd>lua nvim.builtin.cmp.active = true<cr>", desc = "Completion on" },
+  -- -- w = { '<cmd>lua require("user.functions").toggle_option("wrap")<cr>', "Wrap" },
+  -- -- { "<leader>ow", '<cmd>lua require("user.functions").toggle_option("wrap")<cr>', desc = "Wrap" },
+  -- -- r = { '<cmd>lua require("user.functions").toggle_option("relativenumber")<cr>', "Relative" },
+  -- -- { "<leader>or", '<cmd>lua require("user.functions").toggle_option("relativenumber")<cr>', desc = "Relative" },
+  -- -- l = { '<cmd>lua require("user.functions").toggle_option("cursorline")<cr>', "Cursorline" },
+  -- -- { "<leader>ol", '<cmd>lua require("user.functions").toggle_option("cursorline")<cr>", desc = "Cursorline" },
+  -- -- s = { '<cmd>lua require("user.functions").toggle_option("spell")<cr>', "Spell" },
+  -- -- { "<leader>os", '<cmd>lua require("user.functions").toggle_option("spell")<cr>", desc = "Spell" },
+  -- -- t = { '<cmd>lua require("user.functions").toggle_tabline()<cr>', "Tabline" },
+  -- -- { "<leader>ot", '<cmd>lua require("user.functions").toggle_tabline()<cr>', desc = "Tabline" },
+
+
+  { "<leader>n", group = "Notes" },
+  { "<leader>nc", "<cmd>Telekasten show_calendar<cr>", desc = "Calendar" },
+  { "<leader>nn", "<cmd>Telekasten new_note<cr>", desc = "Note" },
+  { "<leader>nf", "<cmd>Telekasten find_notes<cr>", desc = "Find" },
+  { "<leader>nF", "<cmd>Telekasten find_daily_notes<cr>", desc = "Find Journal" },
+  { "<leader>nj", "<cmd>Telekasten goto_today<cr>", desc = "Journal" },
+  { "<leader>np", "<cmd>Telekasten panel<cr>", desc = "Panel" },
+  { "<leader>nt", "<cmd>Telekasten toggle_todo<cr>", desc = "Toggle Todo" },
+
+  { "<leader>e", group = "NvimTree" },
+  { "<leader>ee", "<cmd>NvimTreeToggle<CR>", desc = "Explorer" },
+  { "<leader>ef", "<cmd>NvimTreeFocus<CR>", desc = "Focus" },
+
+
+  -- Mappings with 'm' prefix (from your separate wk.add block)
+  -- Add mode = "n" explicitly as per your old m_opts
+  { "mm", "<cmd>BookmarkToggle<cr>", desc = "Toggle", mode = "n" },
+  { "mj", "<cmd>BookmarkNext<cr>", desc = "Next", mode = "n" },
+  { "mk", "<cmd>BookmarkPrev<cr>", desc = "Prev", mode = "n" },
+  { "mc", "<cmd>BookmarkClear<cr>", desc = "Clear", mode = "n" },
+  { "ml", "<cmd>BookmarkList<cr>", desc = "List", mode = "n" },
+  { "mf", "<cmd>FilemarkToggle<cr>", desc = "Mark File", mode = "n" },
+  { "mh", '<cmd>lua require("harpoon.mark").add_file()<cr>', desc = "Harpoon", mode = "n" },
+
+  -- ["."] = { '<cmd>lua require("harpoon.ui").nav_next()<cr>', "Harpoon Next" },
+  -- { "m.", '<cmd>lua require("harpoon.ui").nav_next()<cr>', desc = "Harpoon Next", mode = "n" },
+  -- [","] = { '<cmd>lua require("harpoon.ui").nav_prev()<cr>', "Harpoon Prev" },
+  -- { "m,", '<cmd>lua require("harpoon.ui").nav_prev()<cr>', desc = "Harpoon Prev", mode = "n" },
+  -- l = { "<cmd>lua require('user.bfs').open()<cr>", "Buffers" }, -- Note: This conflicts with ml above.
+  -- { "ml", "<cmd>lua require('user.bfs').open()<cr>", desc = "Buffers", mode = "n" }, -- Note: Keeping commented due to conflict with active ml
+  -- s = { "<cmd>Telescope harpoon marks<cr>", "Search Files" }, -- Note: This conflicts with ms below.
+  -- { "ms", "<cmd>Telescope harpoon marks<cr>", desc = "Search Files", mode = "n" }, -- Note: Keeping commented due to conflict with commented ms
+  -- s = { "<cmd>lua require('telescope').extensions.vim_bookmarks.all({...})<cr>", "Show" }, -- Note: This conflicts with ms above.
+  -- { "ms", "<cmd>lua require('telescope').extensions.vim_bookmarks.all({ hide_filename=false, prompt_title=\"bookmarks\", shorten_path=false })<cr>", desc = "Show Bookmarks", mode = "n" }, -- Note: Keeping commented due to conflict with commented ms
+  -- [";"] = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Harpoon UI" },
+  -- { "m;", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', desc = "Harpoon UI", mode = "n" },
+
+})

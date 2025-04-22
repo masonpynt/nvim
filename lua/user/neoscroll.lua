@@ -3,19 +3,22 @@ if not status_ok then
   return
 end
 
-neoscroll.setup {
-  -- All keys mapped corresponding dault scrolling animation
-  mappings = { "C-j", "C-k", "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt", "zz", "zb" },
-  hide_cursor = true, -- hide cursor on scroll
-  stop_eof = true, -- Stop at <EOF> on downward scroll
-  use_local_scrolloff = false, -- Use local scope of scrollof instead of global scope
-  respect_scrolloff = true, -- Stop scroll when cursor reaches scrolloff margin of file
-  icursor_scrolls_alone = false, -- Cursor will keep on scrolling even if window cannot scroll further
-}
+neoscroll.setup({
+  hide_cursor = true,
+  stop_eof = true,
+  use_local_scrolloff = false,
+  respect_scrolloff = true,
+  cursor_scrolls_alone = false,
+})
 
-local t = {}
+local map = vim.keymap.set
+local opts = { silent = true, expr = false }
 
-t["<c-k>"] = { "scroll", { "-vim.wo.scroll", "true", 250 } }
-t["<c-j>"] = { "scroll", { "vim.wo.scroll", "true", 250 } }
+map("n", "<C-k>", function()
+  require("neoscroll").scroll(-vim.wo.scroll, true, 250)
+end, opts)
 
-require("neoscroll.config").set_mappings(t)
+map("n", "<C-j>", function()
+  require("neoscroll").scroll(vim.wo.scroll, true, 250)
+end, opts)
+
