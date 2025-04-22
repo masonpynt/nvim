@@ -32,7 +32,7 @@ local plugins = {
   "JoosepAlviste/nvim-ts-context-commentstring", -- treesitter context commentstring
 -- "kyazdani42/nvim-tree.lua",                    -- file explorer tree
   "tamago324/lir.nvim",                          -- file explorer
---  "lewis6991/gitsigns.nvim",              
+  "lewis6991/gitsigns.nvim",              
   "folke/which-key.nvim",                        -- whichkey popup for keybinds
   "numToStr/Comment.nvim",                       -- comments that support treesitter, dot repeat, etc.
   "ahmedkhalf/project.nvim",                     -- that one cool project plugin that integrates with telescope.
