@@ -4,7 +4,7 @@ local plugins = {
   "tamago324/nlsp-settings.nvim",    -- LSP plugin for JSON/YAML.
   "williamboman/mason.nvim",         -- LSP, DAP, linter, formatter manager.
   "williamboman/mason-lspconfig",    -- Plugin for mason.nvim to more easily use lsp configs.
-  "jose-elias-alvarez/null-ls.nvim", -- null ls be null ls
+  "nvimtools/none-ls.nvim", -- fork of null-ls (uses same 'null-ls' module name)
 --  "stevearc/conform.nvim",
   {
   "folke/tokyonight.nvim",

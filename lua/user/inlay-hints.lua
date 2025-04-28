@@ -3,7 +3,8 @@ if not status_ok then
   return
 end
 
-local group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+-- Using LspAttach event for Neovim >= 0.8
+vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
 vim.api.nvim_create_autocmd("LspAttach", {
   group = "LspAttach_inlayhints",
   callback = function(args)
@@ -11,11 +12,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return
     end
 
+    local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    require("lsp-inlayhints").on_attach(client, args.buf)
+    require("lsp-inlayhints").on_attach(client, bufnr)
   end,
 })
-
 
 hints.setup {
   inlay_hints = {
@@ -37,5 +38,6 @@ hints.setup {
     right_align_padding = 7,
     highlight = "Comment",
   },
+  -- Disable debug mode to hide potential errors
   debug_mode = false,
 }

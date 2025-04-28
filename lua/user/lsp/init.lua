@@ -33,21 +33,8 @@ require("lspconfig").ts_ls.setup({
 	capabilities = capabilities,
 })
 
-local null_ls = require("null-ls")
-
-null_ls.setup({
-	sources = {
-		null_ls.builtins.formatting.stylua.with({ filetypes = { "lua" } }),
-    null_ls.builtins.formatting.black.with({ filetypes = { "python" } }),
-		null_ls.builtins.formatting.shfmt.with({ filetypes = { "sh", "zsh" } }),
-    null_ls.builtins.formatting.jq.with({ filetypes = { "json" } }),
-		null_ls.builtins.formatting.prettier.with({
-			filetypes = { "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-      extra_args = { "--plugin-search-dir=/Users/mason/.nvm/versions/node/v18.20.3/lib/node_modules/prettier-plugin-astro" },
-		}),
-    null_ls.builtins.formatting.swiftformat.with({ filetypes = { "swift" } }),
-	},
-})
+-- Load none-ls configuration from separate module
+require("user.none-ls").setup()
 
 require("lspconfig").ts_ls.setup({
   on_attach = function(client, bufnr)

@@ -1,7 +1,5 @@
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup {
-  { command = "shfmt", filetypes = { "sh", "zsh", "bash" } },
-}
+-- Shell language support is configured through null-ls in lua/user/none-ls.lua
+-- This file is kept for reference but is not actively used in the config
 
 vim.filetype.add {
   extension = {
